@@ -1,0 +1,5 @@
+com\room\booking_room\resources\JakartaEE11Resource.class
+com\room\booking_room\JakartaRestConfiguration.class
+dbpack\DbManager.class
+pays\pays.class
+Img\AddImage.class

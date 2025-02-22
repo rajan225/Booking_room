@@ -1,0 +1,208 @@
+<%-- 
+    Document   : index.jsp
+    Created on : 21 May, 2024, 1:48:30 PM
+    Author     : win 10
+--%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="dbpack.DbManager"%>
+<%
+
+if(session.getAttribute("userid")==null || session.getAttribute("userid")=="")
+{
+
+response.sendRedirect("../Alogin.jsp");
+}
+else
+{
+%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to fit=no">
+        <title>Admin Home </title>
+        <link href="../images/50.jpg" rel="icon"/>
+        <link href="../css/bootstrap.css" rel="Stylesheet"/>
+        <script src="../js/bootstrap.bundle.js">
+              
+        </script>
+        
+        
+        
+         
+         <style>
+    .room {
+      background-image: url('../images/h4.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 80vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } 
+    
+    
+    
+/*     footer {
+      background-color: orchid;
+      padding: 25px 0;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }*/
+       </style>  
+    </head>
+    <body>
+        <div class="container-flude">
+            
+            
+            
+            <div class="row">
+                <div class="col-sm">
+                    
+                    
+                    
+                    <jsp:include page="header.jsp" />
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+            
+            
+            
+                    
+                     
+          <div class="container-flude room">
+              
+              
+              <h3 class="">
+                  
+                 Over 17,000+ hotels and homes 
+                 across  25+ contries 
+              </h3>
+              
+              
+          </div>
+                    
+                    
+            <!--news s-->
+            
+            <div class="row">
+                
+                <div class="col-sm-12 bg-danger text-light" Style="min-height: 50px;">
+                   <marquee class="" scrollamount="5" onmouseover="stop()" onmouseout="start()" Style=";" >
+                       
+                    
+                    <%
+                    DbManager dm=new DbManager();
+                    ResultSet sr=dm.select("select * from news");
+                    while(sr.next())
+                    {
+                        
+           
+                    %>
+                    
+                       <h6 class="d-inline" > <%=sr.getString("news")%> ||</h6>
+                    
+                    
+                         <%}%>
+                       </marquee>  
+                </div>
+            </div>
+            
+            
+            <!--news e-->
+            
+            
+              <!--main body s-->
+             
+             
+             
+               
+                 
+                 <div class="row" style="overflow-x: scroll;">
+                        
+                        <div class="col-sm py-4 my-4" style="box-shadow: 5px 5px 10px 5px black;overflow-x: scroll; ">
+                            <div class="row bg-danger"><h2 class="text-center text-light">Booking properties</h2></div> 
+                            <table class="table table-bordered">
+                                
+                                
+                                <tr>
+                                    
+                                    
+                                    <th>Room Id</th>
+                                     <th>Room Image</th>
+                                      <th>Name</th>
+                                      <th>Price</th>
+                                       <th>Room /Hostel/Pg</th>
+                                        <th>Location</th>
+                                         <th>Tenant phone number</th>
+                                         <th>Landlord phone number</th>
+                                          <th>Check in date</th>
+                                           <th>Booking Date</th>
+                                            <th>Status</th>
+                                             <th>Details</th>
+                                             
+                                </tr>
+                                
+            <%
+//           String userid=session.getAttribute("userid").toString();
+            
+            ResultSet rs=dm.select("select * from booked where status='Accepted'");
+            while(rs.next())
+            {
+            %>
+            
+              <tr>
+                                    <td><%=rs.getString("roomid")%></td>
+                                    <td><img src='../properties/<%=rs.getString("image")%>'height='200px'width='200px'</td>
+                                    <td><%=rs.getString("name")%></td>
+                                    <td><%=rs.getString("price")%></td>
+                                    <td><%=rs.getString("search")%></td>
+                                    <td><%=rs.getString("location")%></td>
+                                    <td><%=rs.getString("tmobile")%></td>
+                                    <td><%=rs.getString("lmobile")%></td>
+                                    <td><%=rs.getString("cdate")%></td>
+                                    <td><%=rs.getString("date")%></td>
+                                    <td><%=rs.getString("status")%></td>
+                                    <td><%=rs.getString("about")%></td>
+                                                                       
+                   
+
+              </tr>
+                           
+                            <%}%>
+                             </table> 
+                        </div>
+                        
+                    </div>
+            
+                 
+                 
+                         
+             
+             <!--main body e--> 
+            
+            
+        </div>
+                    <!--footer s-->
+            <div class="row col-sm">
+                
+                
+                <footer class="text-center text-light bg-danger">
+    <div class="container m-5">
+      <p>© 2024-2030 online booking room. All rights reserved.</p>
+      
+    </div>
+  </footer>
+                
+            </div>
+            
+            <!--footer e-->
+    </body>
+</html>
+<%}%>
